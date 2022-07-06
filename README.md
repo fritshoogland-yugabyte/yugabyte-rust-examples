@@ -26,6 +26,14 @@ yum install https://downloads.datastax.com/cpp-driver/centos/7/cassandra/v2.16.0
 [Cargo project with SSL and authentication, ready for Yugabyte Cloud](cassandra-cpp-datastax-cloud).
 
 ### CDRS
-The cdrs driver for Rust is a 'pure rust' driver, meaning it has no non-rust dependencies.
+The cdrs driver for Rust is a 'pure rust' driver, meaning it has no non-rust dependencies.  
 [Cargo project with no authentication](cdrs).
 [Cargo project with SSL and authentication, ready for Yugabyte Cloud](cdrs-cloud).
+
+### scylla
+The scylla driver for Rust is a 'pure rust' driver, meaning it has no non-rust dependencies.  
+The scylla driver is an asynchronous driver.  
+The driver obviously is created for the Scylla database, but it can also be used for any Cassandra compatible database.  
+[Cargo project with no authentication](scylla).  
+[Cargo project with SSL and authentication, ready for Yugabyte Cloud](scylla-cloud).
+
