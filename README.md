@@ -24,3 +24,8 @@ yum install https://downloads.datastax.com/cpp-driver/centos/7/cassandra/v2.16.0
 ```
 [Cargo project with no authentication](cassandra-cpp-datastax).  
 [Cargo project with SSL and authentication, ready for Yugabyte Cloud](cassandra-cpp-datastax-cloud).
+
+### CDRS
+The cdrs driver for Rust is a 'pure rust' driver, meaning it has no non-rust dependencies.
+[Cargo project with no authentication](cdrs).
+[Cargo project with SSL and authentication, ready for Yugabyte Cloud](cdrs-cloud).
