@@ -7,7 +7,7 @@ use cassandra_cpp::*;
 const CONTACT_POINTS: &str = "192.168.66.80,192.168.66.81,192.168.66.82";
 
 fn main() {
-    let query = stmt!("SELECT keyspace_name FROM system_schema.keyspaces;");
+    let query = stmt!("SELECT keyspace_name FROM system_schema.keyspaces");
 
     let mut cluster = Cluster::default();
     cluster.set_contact_points(CONTACT_POINTS).unwrap();
