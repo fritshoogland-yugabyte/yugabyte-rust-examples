@@ -1,7 +1,5 @@
 # Rust examples for YugabyteDB
 
-{:toc}
-
 ## YSQL
 
 ## YCQL
