@@ -23,4 +23,4 @@ EL7 (validated with Centos 7):
 yum install https://downloads.datastax.com/cpp-driver/centos/7/cassandra/v2.16.0/cassandra-cpp-driver-2.16.0-1.el7.x86_64.rpm
 ```
 [Cargo project with no authentication](cassandra-cpp-datastax).  
-Cargo project with SSL and authentication, ready for Yugabyte Cloud.
+[Cargo project with SSL and authentication, ready for Yugabyte Cloud](cassandra-cpp-datastax-cloud).

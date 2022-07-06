@@ -4,7 +4,7 @@
 use cassandra_cpp::*;
 
 // fill out contact points
-const CONTACT_POINTS: &str = "192.168.66.80,192.168.66.81,192.168.66.82";
+const CONTACT_POINTS: &str = "";
 
 fn main() {
     let query = stmt!("SELECT keyspace_name FROM system_schema.keyspaces");
