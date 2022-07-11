@@ -7,11 +7,12 @@ use cdrs::cluster::{ClusterTcpConfig, NodeTcpConfigBuilder};
 use cdrs::load_balancing::RoundRobin;
 use cdrs::query::*;
 use cdrs::types::IntoRustByName;
-
-const NODE_ADDRESS: &str = "192.168.66.80:9042";
+use std::env;
 
 fn main() {
-    let node = NodeTcpConfigBuilder::new(NODE_ADDRESS, NoneAuthenticator {}).build();
+    let node_address: String = env::var("NODE_ADDRESS").expect("NODE_ADDRESS must be set");
+
+    let node = NodeTcpConfigBuilder::new(node_address.as_str(), NoneAuthenticator {}).build();
     let cluster_config = ClusterTcpConfig(vec![node]);
     let session = new(&cluster_config, RoundRobin::new()).unwrap();
 

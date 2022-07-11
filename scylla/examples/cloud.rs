@@ -4,22 +4,22 @@
 use scylla::{IntoTypedRows, Session, SessionBuilder};
 use std::error::Error;
 use openssl::ssl::{SslContextBuilder, SslMethod, SslVerifyMode};
-
-const KNOWN_NODE: &str = "";
-const CA_CERTIFICATE: &str = "";
-const USERNAME: &str = "";
-const PASSWORD: &str = "";
+use std::env;
 
 #[tokio::main]
 async fn main() -> Result<(), Box<dyn Error>> {
+    let known_node: String = env::var("KNOWN_NODE").expect("KNOWN_NODE must be set");
+    let ca_certificate: String = env::var("CA_CERTIFICATE").expect("CA_CERTIFICATE must be set");
+    let username: String = env::var("USER_NAME").expect("USER_NAME must be set");
+    let password: String = env::var("PASSWORD").expect("PASSWORD must be set");
 
     let mut ssl_context = SslContextBuilder::new(SslMethod::tls())?;
-    ssl_context.set_ca_file(CA_CERTIFICATE).unwrap();
+    ssl_context.set_ca_file(ca_certificate).unwrap();
     ssl_context.set_verify(SslVerifyMode::PEER);
 
     let session: Session = SessionBuilder::new()
-        .known_node(KNOWN_NODE)
-        .user(USERNAME, PASSWORD)
+        .known_node(known_node)
+        .user(username, password)
         .ssl_context(Some(ssl_context.build()))
         .build()
         .await?;

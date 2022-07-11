@@ -8,20 +8,20 @@ use cdrs::load_balancing::RoundRobin;
 use cdrs::query::*;
 use cdrs::types::IntoRustByName;
 use openssl::ssl::{SslConnector, SslMethod};
-
-const NODE_ADDRESS: &str = "";
-const USERNAME: &str = "";
-const PASSWORD: &str = "";
-const CA_CERTIFICATE: &str = "";
+use std::env;
 
 fn main() {
+    let node_address: String = env::var("NODE_ADDRESS").expect("NODE_ADDRESS must be set");
+    let ca_certificate: String = env::var("CA_CERTIFICATE").expect("CA_CERTIFICATE must be set");
+    let username: String = env::var("USER_NAME").expect("USER_NAME must be set");
+    let password: String = env::var("PASSWORD").expect("PASSWORD must be set");
 
-    let authenticator = StaticPasswordAuthenticator::new(USERNAME, PASSWORD);
+    let authenticator = StaticPasswordAuthenticator::new(username, password);
     let mut ssl_build = SslConnector::builder(SslMethod::tls()).unwrap();
-    ssl_build.set_ca_file(CA_CERTIFICATE).unwrap();
+    ssl_build.set_ca_file(ca_certificate).unwrap();
     let ssl_connector = ssl_build.build();
 
-    let node = NodeSslConfigBuilder::new(NODE_ADDRESS, authenticator, ssl_connector).build();
+    let node = NodeSslConfigBuilder::new(node_address.as_str(), authenticator, ssl_connector).build();
     let cluster_config = ClusterSslConfig(vec![node]);
     let session = new_ssl(&cluster_config, RoundRobin::new()).unwrap();
 

@@ -6,7 +6,7 @@
 
 ### cassandra-cpp with the datastax driver
 The cassandra-cpp driver for Rust uses the cassandra c++ driver, and uses the function in it via the Rust FFI (foreign function interface).
-The way the cassandra-cpp driver crate works is that it actually is a wrapper around the raw driver binding crate cassandra-cpp-sys.
+The way the cassandra-cpp driver crate works is that it actually is a wrapper around the raw driver binding crate cassandra-cpp-sys, which provides the actual bindings.
 
 #### driver installation
 #### OSX
@@ -22,18 +22,15 @@ EL7 (validated with Centos 7):
 ```shell
 yum install https://downloads.datastax.com/cpp-driver/centos/7/cassandra/v2.16.0/cassandra-cpp-driver-2.16.0-1.el7.x86_64.rpm
 ```
-[Cargo project with no authentication](cassandra-cpp-datastax).  
-[Cargo project with SSL and authentication, ready for Yugabyte Cloud](cassandra-cpp-datastax-cloud).
+[Cargo project with examples](cassandra-cpp-datastax).  
 
 ### CDRS
 The cdrs driver for Rust is a 'pure rust' driver, meaning it has no non-rust dependencies.  
-[Cargo project with no authentication](cdrs).  
-[Cargo project with SSL and authentication, ready for Yugabyte Cloud](cdrs-cloud).
+[Cargo project with examples](cdrs).  
 
 ### scylla
 The scylla driver for Rust is a 'pure rust' driver, meaning it has no non-rust dependencies.  
 The scylla driver is an asynchronous driver.  
 The driver obviously is created for the Scylla database, but it can also be used for any Cassandra compatible database.  
-[Cargo project with no authentication](scylla).  
-[Cargo project with SSL and authentication, ready for Yugabyte Cloud](scylla-cloud).
+[Cargo project with examples](scylla).  
 

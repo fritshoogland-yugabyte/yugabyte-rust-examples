@@ -3,13 +3,14 @@
 // no TLS
 use scylla::{IntoTypedRows, Session, SessionBuilder};
 use std::error::Error;
-
-const KNOWN_NODE: &str = "";
+use std::env;
 
 #[tokio::main]
 async fn main() -> Result<(), Box<dyn Error>> {
+    let known_node: String = env::var("KNOWN_NODE").expect("KNOWN_NODE must be set");
+
     let session: Session = SessionBuilder::new()
-        .known_node(KNOWN_NODE)
+        .known_node(known_node)
         .build()
         .await?;
     if let Some(rows) = session.query("SELECT keyspace_name FROM system_schema.keyspaces", &[]).await?.rows {
