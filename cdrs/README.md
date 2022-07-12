@@ -7,7 +7,11 @@ The example is deliberately kept to a minimum, and performs two things:
 
 The first example uses no authentication and no SSL.
 The only thing required to run is to set the NODE_ADDRESS environment variable:
+```shell
+NODE_ADDRESS="192.168.66.80:9042" cargo run --example simple
+```
 
+Example output:
 ```shell
 fritshoogland@ip-192-168-1-116 cdrs % NODE_ADDRESS="192.168.66.80:9042" cargo run --example simple
     Finished dev [unoptimized + debuginfo] target(s) in 0.14s
@@ -21,6 +25,11 @@ The second example uses authentication and SSL.
 For this example, NODE_ADDRESS, CA_CERTIFICATE, USER_NAME and PASSWORD must be set.
 
 This is also how Yugabyte Cloud can be used:
+```shell
+NODE_ADDRESS="xxxx.aws.ybdb.io:9042" CA_CERTIFICATE="root.crt" USER_NAME="admin" PASSWORD="xxxx" cargo run --example cloud
+```
+
+Example output:
 ```shell
 fritshoogland@ip-192-168-1-116 cdrs % NODE_ADDRESS="xxxx.aws.ybdb.io:9042" CA_CERTIFICATE="root.crt" USER_NAME="admin" PASSWORD="xxxx" cargo run --example cloud
     Finished dev [unoptimized + debuginfo] target(s) in 0.03s
