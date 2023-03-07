@@ -1,40 +1,49 @@
-# cassandra-cpp
-This is a YugabyteDB example of the usage of the cassandra-cpp crate, using the datastax cpp driver.
+# YugabyteDB Cassandra Query Language Examples
 
-The examples are deliberately kept to a minimum, and perform two things:
-1. creating a session.
-2. selecting the keystore names (SELECT keyspace_name FROM system_schema.keyspaces).
+These examples demonstrate how to use YugabyteDB Cassandra Query Language (YCQL) in Rust. The examples reuse the standrad `cassandra-cpp` crate based on the DataStax cpp driver.
 
-The first example uses no authentication and no SSL. 
-The only thing required to run is to set the CONTACT_POINTS environment variable:
-```shell
-CONTACT_POINTS="192.168.66.80,192.168.66.81,192.168.66.82" cargo run --example simple
-```
+The current samples show how to use the standard Cassandra driver to establish a connection with a YugabyteDB cluster and execute a simple query. In particular. you'll learn how to:
+1. Creating a database session
+2. Execute a simple query such as the one that returns the keystore names (`SELECT keyspace_name FROM system_schema.keyspaces`)
 
-Example output:
-```shell
-fritshoogland@ip-192-168-1-116 cassandra-cpp % CONTACT_POINTS="192.168.66.80,192.168.66.81,192.168.66.82" cargo run --example simple
-    Finished dev [unoptimized + debuginfo] target(s) in 0.14s
-     Running `target/debug/examples/simple`
-ks name: system_auth
-ks name: system_schema
-ks name: system
-```
 
-The second example uses authentication and SSL.
-For this example, CONTACT_POINTS, CA_CERTIFICATE, USER_NAME and PASSWORD must be set.
+## Local/On-Prem YugabyteDB Deployment
 
-This is also how Yugabyte Cloud can be used:
-```shell
-CONTACT_POINTS="xxxx.aws.ybdb.io" CA_CERTIFICATE="root.crt" USER_NAME="admin" PASSWORD="xxxx" cargo run --example cloud
-```
+The `simple` example is for local early-stage testing and development with YugabyteDB. With those deployments, you run YugabyteDB on your local laptop or on-prem environemnt and don't need to set up SSL and authentication.
 
-Example output:
-```shell
-fritshoogland@ip-192-168-1-116 cassandra-cpp % CONTACT_POINTS="xxxx.aws.ybdb.io" CA_CERTIFICATE="root.crt" USER_NAME="admin" PASSWORD="xxxx" cargo run --example cloud
-    Finished dev [unoptimized + debuginfo] target(s) in 0.07s
-     Running `target/debug/examples/cloud`
-ks name: system_auth
-ks name: system_schema
-ks name: system
-```
+1. Deploy a local YugabyteDB instance: TDB - Frits please provide a link to a relevant documentation page
+
+2. Pass a list of YugabyteDB connection endpoints in the `CONTACT_POINTS` environment variable and start the example
+    ```shell
+    CONTACT_POINTS="YB_NODE1_IP, YB_NODE2_IP" cargo run --example simple
+    ```
+    
+3. Confirm the application executed sucesfully
+    ```shell
+        Finished dev [unoptimized + debuginfo] target(s) in 0.14s
+         Running `target/debug/examples/simple`
+    ks name: system_auth
+    ks name: system_schema
+    ks name: system
+    ```
+
+## YugabyteDB Managed Deployment
+
+The `cloud` example demosntrates how to connect and use YugabyteDB Managed.
+
+1. [Deploy](https://docs.yugabyte.com/preview/yugabyte-cloud/cloud-quickstart/) a YugabyteDB Managed instance
+
+2. Add your machine's IP address to the [IP Allow list](https://docs.yugabyte.com/preview/yugabyte-cloud/cloud-secure-clusters/add-connections/)
+
+3. Start the example by providing the `CONTACT_POINTS`, `CA_CERTIFICATE`, `USER_NAME` and `PASSWORD` environment variables
+    ```shell
+    CONTACT_POINTS="YB_MANAGED_HOST_NAME" CA_CERTIFICATE="PATH_TO_YB_MANAGED_ROOT_CRT" USER_NAME="YB_MANAGED_USER" PASSWORD="YB_MANAGED_PASSWORD" cargo run --example cloud
+    ```
+4. Confirm the application executed sucesfully
+    ```shell
+        Finished dev [unoptimized + debuginfo] target(s) in 0.07s
+         Running `target/debug/examples/cloud`
+    ks name: system_auth
+    ks name: system_schema
+    ks name: system
+    ```
