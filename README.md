@@ -35,6 +35,21 @@ make
 sudo make install
 popd
 ```
+##### Linux (EL)
+EL8 (validated with Alma 8)
+```shell
+sudo yum install automake cmake gcc-c++ git libtool openssl-devel zlib-devel
+sudo yum install https://downloads.datastax.com/cpp-driver/centos/8/dependencies/libuv/v1.35.0/libuv-1.35.0-1.el8.x86_64.rpm
+sudo yum install https://downloads.datastax.com/cpp-driver/centos/8/dependencies/libuv/v1.35.0/libuv-devel-1.35.0-1.el8.x86_64.rpm
+git clone https://github.com/yugabyte/cassandra-cpp-driver.git
+cd cassandra-cpp-driver
+mkdir build
+pushd build
+cmake ..
+make
+sudo make install
+popd
+```
 [Cargo project with examples](cassandra-cpp).
 
 ### cassandra-cpp with the datastax driver
@@ -67,3 +82,5 @@ The scylla driver is an asynchronous driver.
 The driver obviously is created for the Scylla database, but it can also be used for any Cassandra compatible database.  
 [Cargo project with examples](scylla).  
 
+### Cassandra
+The cassandra crate is the original crate with bindings to the cassandra c++ driver, but has been abandoned.

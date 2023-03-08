@@ -9,16 +9,17 @@ The current samples show how to use the standard Cassandra driver to establish a
 
 ## Local/On-Prem YugabyteDB Deployment
 
-The `simple` example is for local early-stage testing and development with YugabyteDB. With those deployments, you run YugabyteDB on your local laptop or on-prem environemnt and don't need to set up SSL and authentication.
+The `local` example is for local early-stage testing and development with YugabyteDB. With those deployments, you run YugabyteDB on your local laptop or on-prem environemnt and don't need to set up SSL and authentication.
 
-1. Deploy a local YugabyteDB instance: TDB - Frits please provide a link to a relevant documentation page
+1. Deploy a local YugabyteDB instance:
+   - [Local deployment on Mac, Linux, Docker or Kubernetes](https://docs.yugabyte.com/preview/quick-start/)
 
 2. Pass a list of YugabyteDB connection endpoints in the `CONTACT_POINTS` environment variable and start the example
     ```shell
-    CONTACT_POINTS="YB_NODE1_IP, YB_NODE2_IP" cargo run --example simple
+    CONTACT_POINTS="YB_NODE1_IP, YB_NODE2_IP" cargo run --example local
     ```
     
-3. Confirm the application executed sucesfully
+3. Confirm the application executed successfully
     ```shell
         Finished dev [unoptimized + debuginfo] target(s) in 0.14s
          Running `target/debug/examples/simple`
