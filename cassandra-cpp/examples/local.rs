@@ -16,7 +16,7 @@ fn main() {
     cluster.set_contact_points(contact_points.as_str()).expect("Error setting contact points");
     let session = cluster.connect().expect("Error connecting to cluster");
 
-    let result = session.execute(&query).wait().expect("Error execution query");
+    let result = session.execute(&query).wait().expect("Error executing query");
     for row in result.iter() {
         let col: String = row.get_by_name("keyspace_name").expect("Error getting row for column using get_by_name()");
         println!("keyspace_name: {}", col);
