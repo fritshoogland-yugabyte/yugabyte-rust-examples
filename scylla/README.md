@@ -8,17 +8,17 @@ The example is deliberately kept to a minimum, and performs two things:
 The first example uses no authentication and no SSL.
 The only thing required to run is to set the KNOWN_NODE environment variable:
 ```shell
-KNOWN_NODE="192.168.66.80:9042" cargo run --example simple
+KNOWN_NODE="192.168.66.80:9042" cargo run --example local
 ```
 
 Example output:
 ```shell
 fritshoogland@ip-192-168-1-116 scylla % KNOWN_NODE="192.168.66.80:9042" cargo run --example simple
     Finished dev [unoptimized + debuginfo] target(s) in 0.06s
-     Running `target/debug/examples/simple`
-ks name = system_auth
-ks name = system_schema
-ks name = system
+     Running `target/debug/examples/local`
+keyspace_name = system_auth
+keyspace_name = system_schema
+keyspace_name = system
 ```
 
 The second example uses authentication and SSL.
@@ -34,7 +34,7 @@ Example output:
 fritshoogland@ip-192-168-1-116 scylla % KNOWN_NODE="xxxx.aws.ybdb.io:9042" CA_CERTIFICATE="root.crt" USER_NAME="admin" PASSWORD="xxxx" cargo run --example cloud
     Finished dev [unoptimized + debuginfo] target(s) in 0.06s
      Running `target/debug/examples/cloud`
-ks name = system_auth
-ks name = system_schema
-ks name = system
+keyspace_name = system_auth
+keyspace_name = system_schema
+keyspace_name = system
 ```

@@ -16,7 +16,7 @@ async fn main() -> Result<(), Box<dyn Error>> {
     if let Some(rows) = session.query("SELECT keyspace_name FROM system_schema.keyspaces", &[]).await?.rows {
         for row in rows.into_typed::<(Option<String>,)>() {
             let read_row: (Option<String>,) = row?;
-            println!("ks name = {}", read_row.0.unwrap());
+            println!("keyspace_name = {}", read_row.0.unwrap());
         }
     }
     Ok(())
