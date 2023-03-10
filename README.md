@@ -1,10 +1,8 @@
 # Rust examples for YugabyteDB
 
-## YSQL
-
 ## YCQL
-### cassandra-cpp with the yugabyte driver
-The cassandra-cpp driver for Rust uses the Cassandra c++ driver, and uses the functions in it via the Rust FFI (foreign functions interface).
+### cassandra-cpp with the Yugabyte C++ driver
+The cassandra-cpp driver for Rust uses the Cassandra C++ driver, and uses the functions in it via the Rust FFI (foreign functions interface).
 The way the cassandra-cpp driver crate works is that it actually is a wrapper around the raw driver binding crate cassandra-cpp-sys, which provides the actual bindings.
 
 #### driver installation
@@ -20,6 +18,7 @@ make
 make install
 popd
 ```
+The `make install` command installs the driver (libcassandra.dylib) in `/usr/local/lib`.
 ##### Linux (EL)
 EL7 (validated with Centos 7)
 ```shell
@@ -34,6 +33,15 @@ cmake ..
 make
 sudo make install
 popd
+```
+The `make install` command install the driver (libcassandra.so) in `/usr/local/lib64`.
+In order to make the dynamic loader find the library add the directory to the LD_LIBRARY_PATH environment variable:
+```shell
+export LD_LIBRARY_PATH=/usr/local/lib64
+```
+The error that is shown when the libcassandra.so driver is not in the path is:
+```
+target/debug/examples/local: error while loading shared libraries: libcassandra.so.2: cannot open shared object file: No such file or directory
 ```
 ##### Linux (EL)
 EL8 (validated with Alma 8)
@@ -50,10 +58,19 @@ make
 sudo make install
 popd
 ```
+The `make install` command installs the driver (libcassandra.so) in `/usr/local/lib64`, which is not in the default library path.
+In order to make the dynamic loader find the library add the directory to the LD_LIBRARY_PATH environment variable:
+```shell
+export LD_LIBRARY_PATH=/usr/local/lib64
+```
+The error that is shown when the libcassandra.so driver is not in the path is:
+```
+target/debug/examples/local: error while loading shared libraries: libcassandra.so.2: cannot open shared object file: No such file or directory
+```
 [Cargo project with examples](cassandra-cpp).
 
-### cassandra-cpp with the datastax driver
-The cassandra-cpp driver for Rust uses the Cassandra c++ driver, and uses the functions in it via the Rust FFI (foreign function interface).
+### cassandra-cpp with the DataStax driver
+The cassandra-cpp driver for Rust uses the Cassandra C++ driver, and uses the functions in it via the Rust FFI (foreign function interface).
 The way the cassandra-cpp driver crate works is that it actually is a wrapper around the raw driver binding crate cassandra-cpp-sys, which provides the actual bindings.
 
 #### driver installation
@@ -75,6 +92,7 @@ yum install https://downloads.datastax.com/cpp-driver/centos/7/cassandra/v2.16.0
 ### CDRS
 The cdrs driver for Rust is a 'pure rust' driver, meaning it has no non-rust dependencies.  
 [Cargo project with examples](cdrs).  
+cdrs-tokio?
 
 ### scylla
 The scylla driver for Rust is a 'pure rust' driver, meaning it has no non-rust dependencies.  
