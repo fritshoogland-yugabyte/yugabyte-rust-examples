@@ -9,3 +9,4 @@ edition = "2021"
 scylla = { version = "*", features = ["ssl"] }
 openssl = "*"
 tokio = { version = "*", features = ["full"] }
+rand = "*"
