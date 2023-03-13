@@ -1,5 +1,5 @@
 [package]
-name = "cassandra-cpp-datastax"
+name = "cassandra-cpp"
 version = "0.2.0"
 edition = "2021"
 
@@ -7,3 +7,4 @@ edition = "2021"
 
 [dependencies]
 cassandra-cpp = "*"
+rand = "*"

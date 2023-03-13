@@ -1,7 +1,7 @@
+// Example that performs batch inserts.
+
 use scylla::{Session, SessionBuilder};
 use scylla::batch::Batch;
-//use scylla::query::Query;
-//use scylla::prepared_statement::PreparedStatement;
 use std::error::Error;
 use std::env;
 use rand::{thread_rng, Rng};
@@ -37,12 +37,12 @@ async fn main() -> Result<(), Box<dyn Error>> {
 
     let mut batch: Batch = Default::default();
     let mut batch_values = Vec::new();
-    //let prepared_statement = session.prepare(insert_statement).await?;
+    let prepared_statement = session.prepare(insert_statement).await?;
 
     for counter in 1..=total_number_rows
     {
-        batch.append_statement(insert_statement);
-        //batch.append_statement(prepared_statement.clone());
+        //batch.append_statement(insert_statement);
+        batch.append_statement(prepared_statement.clone());
         batch_values.push((counter, random_characters(insert_string_length)));
 
         if counter%batch_size == 0

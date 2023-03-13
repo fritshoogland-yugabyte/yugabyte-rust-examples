@@ -1,6 +1,8 @@
 // for yugabyte cloud
 // authentication
 // TLS
+// This example is inspired on: https://github.com/Metaswitch/cassandra-rs/blob/main/examples/simple.rs
+
 use cassandra_cpp::*;
 use std::{fs, env};
 

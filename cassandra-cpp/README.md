@@ -1,41 +1,49 @@
-# YugabyteDB Cassandra Query Language Examples
+# cassandra-cpp
+Github: https://github.com/Metaswitch/cassandra-rs  
+Documentation: https://docs.rs/cassandra-cpp/latest/cassandra_cpp/
 
 These examples demonstrate how to use YugabyteDB Cassandra Query Language (YCQL) in Rust. 
 The examples use the `cassandra-cpp` crate, which reuses the libcassandra.so driver from either the Yugabyte C++ based driver, or the DataStax C++ driver.
 
-The samples show how to use the cassandra-cpp driver to establish a connection with a YugabyteDB cluster and execute a simple query. In particular. you'll learn how to:
+## Local example
+
+The `local` example is for local early-stage testing and development with YugabyteDB. With those deployments, you run YugabyteDB on your local laptop or on-premises environemnt and don't need to set up SSL and authentication.
+
+The example is deliberately kept to a minimum, and performs two things:
 1. Creating a database session
 2. Execute a simple query such as the one that returns the keystore names (`SELECT keyspace_name FROM system_schema.keyspaces`)
 
-
-## Local/On-Premises YugabyteDB Deployment
-
-The `local` example is for local early-stage testing and development with YugabyteDB. With those deployments, you run YugabyteDB on your local laptop or on-prem environemnt and don't need to set up SSL and authentication.
-
+In order to run this example, setup a YugabyteDB database:
 1. Deploy a local YugabyteDB instance:
    - [Local deployment on Mac, Linux, Docker or Kubernetes](https://docs.yugabyte.com/preview/quick-start/)
-
 2. Pass a list of YugabyteDB connection endpoints in the `CONTACT_POINTS` environment variable and start the example:
-    ```shell
-    CONTACT_POINTS="YB_NODE1_IP,YB_NODE2_IP" cargo run --example local
-    ```
+ 
+```shell
+CONTACT_POINTS="192.168.66.80" cargo run --example local
+```
     
-3. Confirm the application executed successfully
-    ```shell
-        Finished dev [unoptimized + debuginfo] target(s) in 0.14s
-         Running `target/debug/examples/local`
-    keyspace_name: system_auth
-    keyspace_name: system_schema
-    keyspace_name: system
-    ```
+Example output:
+```shell
+➜ CONTACT_POINTS="192.168.66.80" cargo run --example local
+    Finished dev [unoptimized + debuginfo] target(s) in 0.05s
+     Running `target/debug/examples/local`
+keyspace_name: system_auth
+keyspace_name: system_schema
+keyspace_name: system
+```
 
-## YugabyteDB Managed Deployment
+## YugabyteDB Managed example
 
 The `cloud` example demonstrates how to connect to the YCQL interface of a database running in YugabyteDB Managed.
 
+This example performs:
+1. Creating a database session
+2. Execute a simple query such as the one that returns the keystore names (`SELECT keyspace_name FROM system_schema.keyspaces`)
+
+In order to run this example, set a YugabyteDB cloud database:
 1. [Deploy](https://docs.yugabyte.com/preview/yugabyte-cloud/cloud-quickstart/) a YugabyteDB Managed instance.
-   a. You have to add your internet ip address to the ip allow list to allow YCQL access (step 2, network access). In most cases the [add current ip address] button should be able to do that.
-   b. You have to set a username/password combination (step 3, db credentials). In most cases it should be appropriate to use the 'admin' user and its password, please download the credential file. This is the only time the password is shown.
+   1. You have to add your internet ip address to the ip allow list to allow YCQL access (step 2, network access). In most cases the [add current ip address] button should be able to do that.
+   2. You have to set a username/password combination (step 3, db credentials). In most cases it should be appropriate to use the 'admin' user and its password, please download the credential file. This is the only time the password is shown.
 
 2. Add your machine's ip address or local network ip address to the [IP Allow list](https://docs.yugabyte.com/preview/yugabyte-cloud/cloud-secure-clusters/add-connections/) (network access>ip allow list)
  
@@ -43,15 +51,38 @@ The `cloud` example demonstrates how to connect to the YCQL interface of a datab
  
 4. Obtain the hostname: clusters>click cluster>connect (upper left corner)>connect your application>click [YCQL] with 2.>select hostname with 'host'.
 
-3. Start the example by providing the `CONTACT_POINTS`, `CA_CERTIFICATE`, `USER_NAME` and `PASSWORD` environment variables
-    ```shell
-    CONTACT_POINTS="(obtained with 4.)" CA_CERTIFICATE="(obtained with 3.)" USER_NAME="(set during 1. default 'admin')" PASSWORD="()" cargo run --example cloud
-    ```
-4. Confirm the application executed sucesfully
-    ```shell
-        Finished dev [unoptimized + debuginfo] target(s) in 0.07s
-         Running `target/debug/examples/cloud`
-    keyspace_name: system_auth
-    keyspace_name: system_schema
-    keyspace_name: system
-    ```
+5. Start the example by providing the `CONTACT_POINTS`, `CA_CERTIFICATE`, `USER_NAME` and `PASSWORD` environment variables
+```shell
+CONTACT_POINTS="(obtained with 4.)" CA_CERTIFICATE="(obtained with 3.)" USER_NAME="(set during 1. default 'admin')" PASSWORD="(see credentials file)" cargo run --example cloud
+```
+
+Exampe output:
+```shell
+➜ CONTACT_POINTS="xxxx.aws.ybdb.io" CA_CERTIFICATE="root.crt" USER_NAME="admin" PASSWORD="xxxx" cargo run --example cloud
+    Finished dev [unoptimized + debuginfo] target(s) in 0.06s
+     Running `target/debug/examples/cloud`
+keyspace_name: system_auth
+keyspace_name: system_schema
+keyspace_name: system
+```
+## Batched inserts with prepared statements example
+
+The `batch_insert` example shows how to use prepared statements and batch inserts.
+It uses the local example unauthenticated access to a local YCQL cluster for the sake of simplicity.
+
+This example performs:
+1. The creation of the `example` keyspace.
+2. The creation of the `example-table` table.
+3. The creation of a prepared insert statement.
+4. The prepared statement being executed in a batched way with bound values.
+
+```shell
+CONTACT_POINTS="192.168.66.80" cargo run --example batch_inserts
+```
+
+Example output:
+```shell
+➜ CONTACT_POINTS="192.168.66.80:9042" cargo run --example batch_insert
+    Finished dev [unoptimized + debuginfo] target(s) in 0.49s
+     Running `target/debug/examples/batch_insert
+```

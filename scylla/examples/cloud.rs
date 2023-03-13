@@ -1,6 +1,8 @@
 // for yugabyte cloud
 // authentication
 // TLS
+// This example is inspired on: https://github.com/scylladb/scylla-rust-driver/blob/main/examples/tls.rs
+
 use scylla::{IntoTypedRows, Session, SessionBuilder};
 use std::error::Error;
 use openssl::ssl::{SslContextBuilder, SslMethod, SslVerifyMode};
@@ -15,6 +17,8 @@ async fn main() -> Result<(), Box<dyn Error>> {
 
     let mut ssl_context = SslContextBuilder::new(SslMethod::tls())?;
     ssl_context.set_ca_file(ca_certificate).unwrap();
+    // SslVerifyMode::PEER for use with self-signed certificate, together with CA certificate.
+    // SslVerifyMode::NONE for using SSL without client certificate.
     ssl_context.set_verify(SslVerifyMode::PEER);
 
     let session: Session = SessionBuilder::new()
@@ -27,7 +31,7 @@ async fn main() -> Result<(), Box<dyn Error>> {
     if let Some(rows) = session.query("SELECT keyspace_name FROM system_schema.keyspaces", &[]).await?.rows {
         for row in rows.into_typed::<(Option<String>,)>() {
             let read_row: (Option<String>,) = row?;
-            println!("ks name = {}", read_row.0.unwrap());
+            println!("keyspace_name = {}", read_row.0.unwrap());
         }
     }
     Ok(())

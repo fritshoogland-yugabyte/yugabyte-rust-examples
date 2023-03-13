@@ -1,6 +1,8 @@
 // for local deployment
 // no authentication
 // no TLS
+// This example is inspired and largely taken from: https://github.com/scylladb/scylla-rust-driver/blob/main/examples/basic.rs
+
 use scylla::{IntoTypedRows, Session, SessionBuilder};
 use std::error::Error;
 use std::env;

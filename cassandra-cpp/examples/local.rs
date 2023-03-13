@@ -1,6 +1,8 @@
 // for local deployment
 // no authentication
 // no TLS
+// This example is inspired and largely taken from: https://github.com/Metaswitch/cassandra-rs/blob/main/examples/simple.rs
+
 use cassandra_cpp::*;
 use std::env;
 
