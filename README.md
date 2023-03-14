@@ -69,6 +69,7 @@ target/debug/examples/local: error while loading shared libraries: libcassandra.
 ```
 [Cargo project with examples](cassandra-cpp).
 
+----
 ### cassandra-cpp with the DataStax driver
 The cassandra-cpp driver for Rust uses the Cassandra C++ driver, and uses the functions in it via the Rust FFI (foreign function interface).
 The way the cassandra-cpp driver crate works is that it actually is a wrapper around the raw driver binding crate cassandra-cpp-sys, which provides the actual bindings.
@@ -89,16 +90,27 @@ yum install https://downloads.datastax.com/cpp-driver/centos/7/cassandra/v2.16.0
 ```
 [Cargo project with examples](cassandra-cpp).  
 
-### CDRS
-The cdrs driver for Rust is a 'pure rust' driver, meaning it has no non-rust dependencies.  
-[Cargo project with examples](cdrs).  
-cdrs-tokio?
-
+----
 ### scylla
 The scylla driver for Rust is a 'pure rust' driver, meaning it has no non-rust dependencies.  
 The scylla driver is an asynchronous driver.  
 The driver obviously is created for the Scylla database, but it can also be used for any Cassandra compatible database.  
-[Cargo project with examples](scylla).  
+[Cargo project with examples](scylla).
 
-### Cassandra
+---
+# WARNING
+Below are crates that are available, but are not active or do lack reasonable SSL support.
+
+### cdrs
+The cdrs driver for Rust is a 'pure rust' driver, meaning it has no non-rust dependencies.  
+[Cargo project with examples](cdrs).  
+Warning: the cdrs driver project asks for a new maintainer, and looks inactive.
+
+### cdrs-tokio
+The cdrs-tokio driver for Rust is a 'pure rust' driver, meaning it has no non-rust dependencies.  
+[Cargo project with examples](cdrs_tokio)
+Warning: the cdrs-tokio driver project looks active, but seems to lack SSL/TLS support.  
+(tls support is a feature, which is not documented and throws crate compatiblity issues)
+
+### cassandra
 The cassandra crate is the original crate with bindings to the cassandra c++ driver, but has been abandoned.
