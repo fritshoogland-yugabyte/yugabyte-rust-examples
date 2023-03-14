@@ -23,7 +23,7 @@ fn main() {
     {
             thread_rng()
                 .sample_iter(&Alphanumeric)
-                .take(length.try_into().unwrap())
+                .take(length)
                 .map(char::from)
                 .collect()
     };
