@@ -58,7 +58,7 @@ CONTACT_POINTS="(obtained with 4.)" CA_CERTIFICATE="(obtained with 3.)" USER_NAM
 
 Exampe output:
 ```shell
-➜ CONTACT_POINTS="xxxx.aws.ybdb.io" CA_CERTIFICATE="root.crt" USER_NAME="admin" PASSWORD="xxxx" cargo run --example cloud
+➜ CONTACT_POINTS="xxxx.ybdb.io" CA_CERTIFICATE="root.crt" USER_NAME="admin" PASSWORD="xxxx" cargo run --example cloud
     Finished dev [unoptimized + debuginfo] target(s) in 0.06s
      Running `target/debug/examples/cloud`
 keyspace_name: system_auth
