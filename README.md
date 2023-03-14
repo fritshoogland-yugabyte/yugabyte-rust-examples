@@ -4,6 +4,7 @@
 ### cassandra-cpp with the Yugabyte C++ driver
 The cassandra-cpp driver for Rust uses the Cassandra C++ driver, and uses the functions in it via the Rust FFI (foreign functions interface).
 The way the cassandra-cpp driver crate works is that it actually is a wrapper around the raw driver binding crate cassandra-cpp-sys, which provides the actual bindings.
+The bindings use the functions provided by the libcassandra (C++) library.
 
 #### driver installation
 ##### OSX
@@ -70,9 +71,10 @@ target/debug/examples/local: error while loading shared libraries: libcassandra.
 [Cargo project with examples](cassandra-cpp).
 
 ----
-### cassandra-cpp with the DataStax driver
+### cassandra-cpp with the DataStax C++ driver
 The cassandra-cpp driver for Rust uses the Cassandra C++ driver, and uses the functions in it via the Rust FFI (foreign function interface).
 The way the cassandra-cpp driver crate works is that it actually is a wrapper around the raw driver binding crate cassandra-cpp-sys, which provides the actual bindings.
+The bindings use the functions provided by the libcassandra (C++) library.
 
 #### driver installation
 ##### OSX
@@ -110,7 +112,7 @@ Warning: the cdrs driver project asks for a new maintainer, and looks inactive.
 The cdrs-tokio driver for Rust is a 'pure rust' driver, meaning it has no non-rust dependencies.  
 [Cargo project with examples](cdrs_tokio)
 Warning: the cdrs-tokio driver project looks active, but seems to lack SSL/TLS support.  
-(tls support is a feature, which is not documented and throws crate compatiblity issues)
+(tls support is a feature, which is not documented and throws crate version compatibility issues)
 
 ### cassandra
 The cassandra crate is the original crate with bindings to the cassandra c++ driver, but has been abandoned.
