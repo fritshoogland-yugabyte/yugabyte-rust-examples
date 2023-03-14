@@ -8,7 +8,7 @@ use std::{fs, env};
 
 fn main() {
     // reading the variables from the environment variables
-    let contact_points: String = env::var("CONTACT_POINTS").expect("CONTACT_POINTS must be set");
+    let contact_points: String = env::var("CONTACT_POINTS").expect("CONTACT_POINTS must be set, comma separated for multiple: HOSTNAME[,HOSTNAME]");
     let ca_certificate: String = env::var("CA_CERTIFICATE").expect("CA_CERTIFICATE must be set");
     let username: String = env::var("USER_NAME").expect("USER_NAME must be set");
     let password: String = env::var("PASSWORD").expect("PASSWORD must be set");

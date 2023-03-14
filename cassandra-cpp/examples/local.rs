@@ -9,8 +9,8 @@ use std::env;
 fn main() {
     // contact points set the ip addresses as a comma separated list, and is mandatory.
     // see https://docs.rs/cassandra-cpp/latest/cassandra_cpp/struct.Cluster.html#method.set_contact_points
+    let contact_points: String = env::var("CONTACT_POINTS").expect("CONTACT_POINTS must be set, comma separated for multiple: HOSTNAME[,HOSTNAME]");
     // by default, port 9042 is used, which can be changed using cassandra_cpp::Cluster::set_port().
-    let contact_points: String = env::var("CONTACT_POINTS").expect("CONTACT_POINTS must be set");
 
     let query = stmt!("SELECT keyspace_name FROM system_schema.keyspaces");
 

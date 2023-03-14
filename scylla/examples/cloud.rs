@@ -10,7 +10,8 @@ use std::env;
 
 #[tokio::main]
 async fn main() -> Result<(), Box<dyn Error>> {
-    let known_node: String = env::var("KNOWN_NODE").expect("KNOWN_NODE must be set");
+    let known_nodes: String = env::var("KNOWN_NODES")expect("KNOWN_NODES must be set: comma separated for multiple; HOSTNAME:PORT[,HOSTNAME:PORT]");
+    let known_nodes: Vec<&str> = known_nodes.split(',').collect();
     let ca_certificate: String = env::var("CA_CERTIFICATE").expect("CA_CERTIFICATE must be set");
     let username: String = env::var("USER_NAME").expect("USER_NAME must be set");
     let password: String = env::var("PASSWORD").expect("PASSWORD must be set");
@@ -22,7 +23,7 @@ async fn main() -> Result<(), Box<dyn Error>> {
     ssl_context.set_verify(SslVerifyMode::PEER);
 
     let session: Session = SessionBuilder::new()
-        .known_node(known_node)
+        .known_nodes(&known_nodes)
         .user(username, password)
         .ssl_context(Some(ssl_context.build()))
         .build()

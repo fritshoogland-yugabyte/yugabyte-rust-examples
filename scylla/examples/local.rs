@@ -9,10 +9,11 @@ use std::env;
 
 #[tokio::main]
 async fn main() -> Result<(), Box<dyn Error>> {
-    let known_node: String = env::var("KNOWN_NODE").expect("KNOWN_NODE must be set");
+    let known_nodes: String = env::var("KNOWN_NODES").expect("KNOWN_NODES must be set: comma separated for multiple; HOSTNAME:PORT[,HOSTNAME:PORT]");
+    let known_nodes: Vec<&str> = known_nodes.split(',').collect();
 
     let session: Session = SessionBuilder::new()
-        .known_node(known_node)
+        .known_nodes(&known_nodes)
         .build()
         .await?;
     if let Some(rows) = session.query("SELECT keyspace_name FROM system_schema.keyspaces", &[]).await?.rows {

@@ -9,7 +9,8 @@ use rand::distributions::Alphanumeric;
 
 #[tokio::main]
 async fn main() -> Result<(), Box<dyn Error>> {
-    let known_node: String = env::var("KNOWN_NODE").expect("KNOWN_NODE must be set");
+    let known_nodes: String = env::var("KNOWN_NODES")expect("KNOWN_NODES must be set: comma separated for multiple; HOSTNAME:PORT[,HOSTNAME:PORT]");
+    let known_nodes: Vec<&str> = known_nodes.split(',').collect();
 
     let create_keyspace = "create keyspace if not exists example";
     let create_table = "create table if not exists example.example_table (id int primary key, f1 text)";
@@ -28,7 +29,7 @@ async fn main() -> Result<(), Box<dyn Error>> {
         };
 
     let session: Session = SessionBuilder::new()
-        .known_node(known_node)
+        .known_nodes(&known_nodes)
         .build()
         .await?;
     

@@ -7,7 +7,7 @@ use rand::distributions::Alphanumeric;
 
 
 fn main() {
-    let contact_points: String = env::var("CONTACT_POINTS").expect("CONTACT_POINTS must be set");
+    let contact_points: String = env::var("CONTACT_POINTS").expect("CONTACT_POINTS must be set, comma separated for multiple: HOSTNAME[,HOSTNAME]");
 
     let create_keyspace = stmt!("create keyspace if not exists example");
     let create_table = stmt!("create table if not exists example.example_table (id int primary key, f1 text)");
