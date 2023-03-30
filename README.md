@@ -1,5 +1,11 @@
 # Rust examples for YugabyteDB
 
+## YSQL
+### postgres
+[Cargo project with examples](postgres)
+### diesel
+### sqlx
+
 ## YCQL
 ### cassandra-cpp with the Yugabyte C++ driver
 The cassandra-cpp driver for Rust uses the Cassandra C++ driver, and uses the functions in it via the Rust FFI (foreign functions interface).

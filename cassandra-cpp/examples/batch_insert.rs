@@ -17,8 +17,8 @@ fn main() {
     let batch_type = BatchType::LOGGED;
 
     let total_number_rows = 1_000_000;
-    let batch_size = 50;
-    let insert_string_length = 200;
+    let batch_size = 200;
+    let insert_string_length = 400;
     let random_characters = |length: usize| -> String
     {
             thread_rng()
