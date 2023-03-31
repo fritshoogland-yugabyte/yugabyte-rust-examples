@@ -14,8 +14,10 @@ fn main() {
     // the username is set to yugabyte (the default YugabyteDB username), set to postgres for the postgres default.
     let username: String = env::var("PGUSER").unwrap_or("yugabyte".to_string());
 
+    // create connection
     let mut connection = Client::connect(&format!("host={} port={} user={}", hostname, port, username), NoTls).expect("Error connecting to database");
 
+    // execute query and fetch result
     for row in connection.query("select table_name from information_schema.tables where table_type = 'BASE TABLE'", &[]).expect("Error executing query")
     {
         let table_name: &str = row.get(0);
