@@ -1,10 +1,36 @@
 # Rust examples for YugabyteDB
 
 ## YSQL
+
+### Smart driver currently not available
+Currently, YugabyteDB YSQL alias the PostgreSQL API does not have a YugabyteDB YSQL specific smart driver.
+Not having a YSQL smart driver is not an issue for regular database usage, because YSQL tries to stay as close as possible to PostgreSQL,
+and therefore the standard PostgreSQL drivers fully work with YugabyteDB YSQL.
+
+However, this means that the YugabyteDB specific features that are in the JDBC driver are currently not available in the driver.
+These functions are:
+- Multiple hosts. To avoid having a single node for the initial connection.
+- Cluster awareness. To enable uniform load balancing.
+- Topology awareness. To be able to distribute connections using the topology decoration (cloud, region, zone).
+- Configurable cluster topology refresh interval.
+
+To express your interest for a Rust smart driver please share your interest with this [issue](https://github.com/yugabyte/yugabyte-db/issues/16657).
+
+### pgcat (smart driver alternative)
+However, there is a (next best) Rust based solution: [pgcat](https://github.com/postgresml/pcat).  
+
+Pgcat is a PostgreSQL pooler like PgBouncer, but adds features.
+The main feature to overcome the absence of a native YugabyteDB YSQL driver, load balance new connections over multiple database endpoints, 
+can be achieved by using pgcat as a front-end or backend-end proxy/pooler.
+
+See [this](https://dev.to/yugabyte/pgcat-a-postgresql-pooler-3a24) article on how to configure pgcat for connection distribution over YugabyteDB YSQL cluster endpoints.
+
 ### postgres
 [Cargo project with examples](postgres)
 ### diesel
+[Cargo project with examples](diesel)
 ### sqlx
+[Cargo project with examples](sqlx)
 
 ## YCQL
 ### cassandra-cpp with the Yugabyte C++ driver
