@@ -9,13 +9,19 @@ use r2d2_postgres::PostgresConnectionManager;
 use r2d2::Pool;
 use std::env;
 
-fn main() {
+fn main()
+{
+    // The settings for creating a connectionpool for a local YugabyteDB / PostgreSQL database without authentication
+    // PGHOST must be set, otherwise it will panic (expect)
+    // PGPORT is set to 5433 if not set (unwrap_or)
+    // PGUSER is set to yugabyte if not set (unwrap_or)
     let hostname: String = env::var("PGHOST").expect("PGHOST must be set");
-    // The port is set to 5433 (the default YugabyteDB port), set to 5432 for the postgres default.
     let port: String = env::var("PGPORT").unwrap_or("5433".to_string());
-    // the username is set to yugabyte (the default YugabyteDB username), set to postgres for the postgres default.
     let username: String = env::var("PGUSER").unwrap_or("yugabyte".to_string());
 
+    // setup connectionpool
+    // the pool::builder().max_size() function sets the maximum number of connections
+    // the pool::builder().min_idle() function sets the number of idle connections, None (default) sets max_size.
     let pool_manager = PostgresConnectionManager::new(format!("host={} port={} user={}", hostname, port, username).parse().unwrap(), NoTls);
     let pool = Pool::builder().max_size(5).build(pool_manager).expect("Unable to create connectionpool");
 
