@@ -19,4 +19,5 @@ tokio-postgres = "*"
 tokio = { version = "*", features = [ "full" ] }
 bb8 = "*"
 bb8-postgres = "*"
-deadpool-postgres = "0.10.5"
+deadpool-postgres = "*"
+futures-util = "*"
