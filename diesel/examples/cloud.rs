@@ -5,8 +5,11 @@
 // example influenced by https://docs.rs/postgres/latest/postgres/
 // https://diesel.rs/guides/getting-started
 
-use diesel::{pg::PgConnection, prelude::*, sql_types::*, sql_query};
+use diesel::pg::PgConnection;
+use diesel::prelude::*;
 use std::env;
+use diesel::sql_query;
+use diesel::sql_types::*;
 
 
 #[derive(Debug, QueryableByName)]
@@ -27,9 +30,12 @@ fn main() {
     let port: String = env::var("PGPORT").unwrap_or("5433".to_string());
     // the username is set to yugabyte (the default YugabyteDB username), set to postgres for the postgres default.
     let username: String = env::var("PGUSER").unwrap_or("yugabyte".to_string());
+    let password: String = env::var("PGPASSWORD").expect("PGPASSWORD must be set");
+    let database: String = env::var("PGDATABASE").unwrap_or("yugabyte".to_string());
+    let ca_certificate_file: String = env::var("PGSSLROOTCERT").expect("PGSSLROOTCERT must be set");
 
     // create connection
-    let mut connection = PgConnection::establish(&format!("host={} port={} user={}", hostname, port, username)).expect("Error connecting to database");
+    let mut connection = PgConnection::establish(&format!("host={hostname} port={port} user={username} password={password} dbname={database} sslmode=verify-full sslrootcert={ca_certificate_file}")).expect("Error connecting to database");
 
     // execute query and fetch result
     let rows: Vec<Tables> = sql_query("select table_catalog, table_schema, table_name, table_type from information_schema.tables where table_type = 'BASE TABLE'")
