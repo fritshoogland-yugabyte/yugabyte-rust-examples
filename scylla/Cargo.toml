@@ -10,3 +10,4 @@ scylla = { version = "*", features = ["ssl"] }
 openssl = "*"
 tokio = { version = "*", features = ["full"] }
 rand = "*"
+itertools = "0.11.0"

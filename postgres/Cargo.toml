@@ -20,4 +20,4 @@ tokio = { version = "*", features = [ "full" ] }
 bb8 = "*"
 bb8-postgres = "*"
 deadpool-postgres = "*"
-futures-util = "*"
+futures = "*"

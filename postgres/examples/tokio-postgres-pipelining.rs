@@ -1,6 +1,6 @@
 use tokio_postgres::{NoTls, Error, connect};
 use std::env;
-use futures_util::future::join_all;
+use futures::future::join_all;
 
 #[tokio::main]
 async fn main() -> Result<(), Error>

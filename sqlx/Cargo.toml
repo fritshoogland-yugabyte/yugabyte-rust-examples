@@ -8,3 +8,4 @@ edition = "2021"
 [dependencies]
 sqlx = { version = "*", features = [ "runtime-tokio-rustls", "postgres", "macros" ] }
 tokio = { version = "*", features = [ "full" ] }
+futures = "*"
